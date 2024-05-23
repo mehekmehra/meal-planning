@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1> Add meal </h1>
+    <p>Enter a unique name for the dish:</p>
+    <input type="text" id="mealInput">
+    <p>Please enter at least one dish for each category</p>
+    <p>Enter the ingredients for the dish as a comma separated list:</p>
+    <input type="text" id="ingredientsInput">
+
+    <select name="category" id="categoryInput">
+        <option value="side">Side</option>
+        <option value="protein">Protein</option>
+        <option value="full_meal">Full Meal</option>
+    </select>
+    <button onclick="submitMeal()">Submit</button>
+    <div id="meal_input_message"></div>
+
+    <h2>Schedule Meals</h2>
+    <p>Enter how many weeks want to schedule meals for</p>
+    <input type="text" id="numWeeks">
+    <button onclick="scheduleMeals()">Make Meal Schedule</button>
+
+    <div id="num_weeks_message"></div>
+
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>

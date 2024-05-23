@@ -1,15 +1,23 @@
 import sqlite3
-
+import csv
 
 class SetUpMeals():
-    def __init__(self, db_name, first_time=False):
-        self.name = db_name
+    def __init__(self, db_name=None, first_time=False):
+      
+        if db_name:
+            self.name = db_name
+        else:
+            with open("user_info.csv", mode='r', newline='') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    db_name = row[0]
+                self.name = db_name
+
         self.connection = sqlite3.connect(self.name)
         self.cursor = self.connection.cursor()
         if first_time:
             self.makeTables()
-        
-    
+
     def makeTables(self):
         make_meals_table ='''CREATE TABLE meals(
                 name varchar(255) NOT NULL,
@@ -22,6 +30,7 @@ class SetUpMeals():
                 ingredient varchar(255)
                 )'''
         self.cursor.execute(make_ingredients_table)
+
 
     def addMeal(self, name, category, ingredients):
         add_to_meals = ''' INSERT INTO meals(name, category)

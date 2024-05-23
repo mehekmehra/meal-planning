@@ -7,13 +7,15 @@ from google.auth.transport.requests import Request
 from datetime import date, timedelta, datetime
 import os
 import pickle
+import csv
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 class GCal():
-    def __init__(self, num_weeks, db_name, first_time, user_email, calendar_name=None):
+    def __init__(self, num_weeks, first_time, calendar_name=None, db_name=None, user_email=None):
+        self.num_weeks = num_weeks
         self.creds = service_account.Credentials.from_service_account_file(
-                    'credentials.json')
+                    'backend/credentials.json')
         self.service = build('calendar', 'v3', credentials=self.creds)
 
         # create new calendars and share them with first time users
@@ -22,16 +24,21 @@ class GCal():
                 self.calendar_id = self.create_calendar(calendar_name)
             else:
                 self.calendar_id = self.create_calendar("meal_planning")
-        
+            self.db_name = db_name
+            self.user_email = user_email
         # for returning users, just pull the saved calendar id
         else:
-            file = open("calendar_id.txt", 'w')
-            calendar_id = file.read()
+            with open("user_info.csv", mode='r', newline='') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    calendar_id = row[2]
+                    db_name = row[0]
+                    user_email = row[1]
             self.calendar_id = calendar_id
+            self.db_name = db_name
+            self.user_email = user_email
         
-        self.num_weeks = num_weeks
-        self.db_name = db_name
-        self.user_email = user_email
+        
 
     def create_calendar(self, calendar_name):
         new_calendar = {
@@ -40,12 +47,14 @@ class GCal():
                         }
         
         calendar = self.service.calendars().insert(body=new_calendar).execute()
-        file = open("calendar_id.txt", 'w')
-        file.write(calendar["id"])
-        file.close()
+        # file = open("calendar_id.txt", 'w')
+        # file.write(calendar["id"])
+        # file.close()
 
-        self.share_calendar()
-        return calendar['id']
+        calendar_id = calendar["id"]
+
+        self.share_calendar(calendar_id)
+        return calendar_id
     
     def create_event(self, event_name, description, start, end):
         event = {
@@ -63,7 +72,7 @@ class GCal():
         created_event = self.service.events().insert(calendarId=self.calendar_id, body=event).execute()
         return created_event['id']
     
-    def share_calendar(self):
+    def share_calendar(self, calendar_id):
         rule = {
             'scope': {
                 'type': 'user',
@@ -72,7 +81,7 @@ class GCal():
             'role': 'owner' 
         }
 
-        self.service.acl().insert(calendarId=self.calendar_id, body=rule).execute()
+        self.service.acl().insert(calendarId=calendar_id, body=rule).execute()
 
     def get_sundays(self):
         # get today's date
