@@ -10,11 +10,11 @@
     <h2>First Time User</h2>
 
     <p>Enter a name for your calendar:</p>
-    <input type="text" id="nameInput">
+    <input type="text" id="nameInput" placeholder="Calendar Name ...">
     <p>Enter a Gmail email to share the calendar:</p>
-    <input type="text" id="emailInput">
+    <input type="text" id="emailInput" placeholder="Email ...">
     <button onclick="submitInfo()">Submit</button>
-    <div id="info_message"></div>
+    <div id="info_message" class="message"></div>
 
     <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>

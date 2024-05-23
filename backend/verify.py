@@ -3,7 +3,7 @@ from backend.db_setup import SetUpMeals
 
 def verify_db(db_name):
     db_exists = os.path.exists(db_name)
-    if db_exists:
+    if db_exists or len(db_name) == 0:
         return False, "Please pick a unique name for your calendar"
     else:
         return True, ""
@@ -31,6 +31,8 @@ def verify_meal_name(name):
     db.connection.commit()
     rows = db.cursor.fetchall()
 
+    if len(name) == 0:
+        return False, "Please enter a name for your meal."
     for row in rows:
         if (name,) == row:
             return False, "Please enter a unique name for your meal."
@@ -41,7 +43,7 @@ def verify_num_weeks(num_weeks):
     if num_weeks.isdigit():
         return True, ""
     else:
-        return False, "please enter an integer"
+        return False, "Please enter an integer."
     
 def verify_num_meals():
     db = SetUpMeals()

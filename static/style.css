@@ -38,7 +38,7 @@ h3 {
 
 p {
     font-family: 'Montserrat';
-    font-size: 2vw;
+    font-size: 1.7vw;
     margin: 1vw;
     color: #511E5B;
 }
@@ -48,7 +48,7 @@ button {
     border: 2px solid #B1B542;
     font-family: 'Montserrat';
     color: #B1B542;
-    font-size: 2vw;
+    font-size: 1.7vw;
     margin-right: 1vw;
     border-radius: 4px;
     padding: 1vw;
@@ -69,7 +69,7 @@ input {
     background-color: transparent;
     border: 2px solid #B1B542;
     font-family: 'Montserrat';
-    font-size: 2vw;
+    font-size: 1.7vw;
     color: #0E1729;
     border-radius: 4px;
     padding: 0.5vw; 
@@ -81,11 +81,11 @@ select {
     background-color: transparent;
     border: 2px solid #B1B542;
     font-family: 'Montserrat';
-    font-size: 2vw;
+    font-size: 1.7vw;
     color: #0E1729;
     padding: 0.5vw; 
     border-radius: 4px;
-    margin: 1vw;
+    margin-left: 1vw;
 }
 
 #firstTimeDiv {
@@ -100,4 +100,18 @@ select {
 
 #scheduleMealsTitle {
     margin-top: 2vw;
+}
+
+.errorMessage {
+    font-size: 1vw;
+    color: #A31717;
+    margin: 0;
+    margin-left: 1vw;
+}
+
+.successMessage {
+    font-size: 1vw;
+    color: #B1B542;
+    margin: 0;
+    margin-left: 1vw;
 }

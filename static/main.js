@@ -1,18 +1,11 @@
-var isFirstTime = false
-var dbName
-var meal
-var ingredients
-var category
+
 
 function firstTime() {
     window.location.href = '/first_time';
 }
-
-// Function to handle add meal button click
 function returningUser() {
     fetch('/returning_user')
     .then(response => {
-        // Redirect to the add meal page after the request is complete
         window.location.href = '/adding_meals';
     })
     .catch(error => console.error('Error:', error));
@@ -23,10 +16,11 @@ function firstAddMeals() {
 }
 
 function submitInfo() {
-    // Get the value from the input box
-    dbName = document.getElementById('nameInput').value;
-    email = document.getElementById('emailInput').value;
-     // Send the name to the Flask backend
+    const dbNameInput = document.getElementById('nameInput');
+    const dbName = dbNameInput.value;
+    const emailInput = document.getElementById('emailInput');
+    const email = emailInput.value;
+
     fetch('/submit_info', {
         method: 'POST',
         headers: {
@@ -43,20 +37,26 @@ function submitInfo() {
         const message = document.createElement('p');
         message.textContent = data.message;
 
-        if (data.status === "error") {
-            messageDiv.innerHTML = data.message;  
-            messageDiv.style.color = 'red';       
-        }
-        else {
+        if (data.status === "error") {      
+            
+            message.classList.add('errorMessage');
+        } else {
             window.location.href = '/adding_meals';
+            message.classList.add('successMessage');  
         }
+        messageDiv.appendChild(message); 
+        dbNameInput.value = "";
+        emailInput.value = "";
     });
 }
 
 function submitMeal() {
-    meal = document.getElementById('mealInput').value;
-    ingredients = document.getElementById('ingredientsInput').value;
-    category = document.getElementById('categoryInput').value;
+    const mealInput = document.getElementById('mealInput');
+    const meal = mealInput.value;
+    const ingredientsInput = document.getElementById('ingredientsInput');
+    const ingredients = ingredientsInput.value;
+    const categoryInput = document.getElementById('categoryInput');
+    const category = categoryInput.value
 
     fetch('/submit_meal', {
         method: 'POST',
@@ -76,14 +76,19 @@ function submitMeal() {
         message.textContent = data.message;
 
         if (data.status === "error") {
-            messageDiv.innerHTML = data.message;  
-            messageDiv.style.color = 'red';       
+            message.classList.add('errorMessage');  
+        } else {
+            message.classList.add('successMessage'); 
         }
+        messageDiv.appendChild(message); 
+        mealInput.value = '';
+        ingredientsInput.value = '';
     });
 }
 
 function scheduleMeals() {
-    numWeeks = document.getElementById('numWeeks').value;
+    const numWeeksInput = document.getElementById('numWeeks');
+    const numWeeks = numWeeksInput.value;
     fetch('/schedule_meals', {
         method: 'POST',
         headers: {
@@ -99,10 +104,13 @@ function scheduleMeals() {
         const message = document.createElement('p');
         message.textContent = data.message;
 
-        if (data.status === "error") {
-            messageDiv.innerHTML = data.message;  
-            messageDiv.style.color = 'red';       
+        if (data.status === "error") { 
+            message.classList.add('errorMessage'); 
+        } else {
+            message.classList.add('successMessage');   
         }
+        messageDiv.appendChild(message); 
+        numWeeksInput.value = '';
     });
 
 }

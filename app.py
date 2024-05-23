@@ -51,7 +51,7 @@ def get_new_info():
     
     db = SetUpMeals(db_name, True)
 
-    return jsonify({"status": "success", "message": error_message}), 400
+    return jsonify({"status": "success", "message": "User Info Added!"}), 400
 
 
 @app.route("/schedule_meals", methods=["Post"])
@@ -71,7 +71,7 @@ def schedule_meals():
     gc = GCal(num_weeks, False)
 
     gc.schedule_meals()
-    return jsonify({"status": "success", "message": f"Calendar Made Successfully!"}), 200
+    return jsonify({"status": "success", "message": "Calendar Made Successfully!"}), 200
 
 @app.route('/submit_meal', methods=['POST'])
 def get_meal():
@@ -94,7 +94,7 @@ def get_meal():
     db = SetUpMeals()
     db.addMeal(name, category, ingredients_list)
     db.verify()
-    return name
+    return jsonify({"status": "success", "message": "Meal Added!"}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)

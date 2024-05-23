@@ -10,9 +10,9 @@
     <h2> Scheduling Meals </h2>
     <h3> Add Meals </h3>
     <p>Enter a unique name for the dish:</p>
-    <input type="text" id="mealInput">
+    <input type="text" id="mealInput" placeholder="Dish Name ...">
     <p>Enter the ingredients for the dish as a comma separated list:</p>
-    <input type="text" id="ingredientsInput">
+    <input type="text" id="ingredientsInput" placeholder="Ingredients ... ">
 
     <select name="category" id="categoryInput">
         <option value="side">Side</option>
@@ -20,14 +20,15 @@
         <option value="full_meal">Full Meal</option>
     </select>
     <button onclick="submitMeal()">Submit</button>
-    <div id="meal_input_message"></div>
+
+    <div id="meal_input_message" class="message"></div>
 
     <h3 id="scheduleMealsTitle">Schedule Meals</h3>
     <p>Enter how many weeks want to schedule meals for</p>
-    <input type="text" id="numWeeks">
+    <input type="text" id="numWeeks" placeholder="Number of Weeks ...">
     <button onclick="scheduleMeals()">Make Meal Schedule</button>
 
-    <div id="num_weeks_message"></div>
+    <div id="num_weeks_message" class="message"></div>
 
     <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
