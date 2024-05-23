@@ -2,3 +2,4 @@ venv
 credentials.json
 blah
 user_info.csv
+__pycache__
