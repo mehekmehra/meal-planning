@@ -8,7 +8,6 @@ def verify_db(db_name):
     else:
         return True, ""
 
-
 def verify_email(email):
     if email[-10:] == "@gmail.com":
         return True, ""
@@ -24,6 +23,7 @@ def verify_ingredients(ingredients):
     else:
         return False, "Please enter a comma separated list."
 
+
 def verify_meal_name(name):
     db = SetUpMeals()
     query = "select name from meals;"
@@ -34,11 +34,23 @@ def verify_meal_name(name):
     for row in rows:
         if (name,) == row:
             return False, "Please enter a unique name for your meal."
-        
     return True, ""
+
 
 def verify_num_weeks(num_weeks):
     if num_weeks.isdigit():
         return True, ""
     else:
         return False, "please enter an integer"
+    
+def verify_num_meals():
+    db = SetUpMeals()
+    query = "select category from meals;"
+    db.cursor.execute(query)
+    db.connection.commit()
+    rows = db.cursor.fetchall()
+    
+    if len(rows) < 3:
+        return False, "Please enter at least one dish for each category."
+        
+    return True, ""

@@ -1,0 +1,103 @@
+body {
+    background-color: #EEF1DF;
+}
+
+@font-face {
+    font-family: 'OstrichBold';
+    src: url(fonts/OstrichSans-Heavy.otf)
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url(fonts/Montserrat-VariableFont_wght.ttf)
+}
+
+h1 {
+    font-family: 'OstrichBold';
+    font-size: 17vw;
+    margin: 0;
+    max-width: 10vw;
+    color: #0E1729;
+}
+
+h2 {
+    font-family: 'OstrichBold';
+    font-size: 7vw;
+    margin: 0;
+    color: #0E1729;
+}
+
+h3 {
+    font-family: 'OstrichBold';
+    font-size: 4vw;
+    margin: 0;
+    margin-right: 1vw;
+    
+    color: #511E5B;
+}
+
+p {
+    font-family: 'Montserrat';
+    font-size: 2vw;
+    margin: 1vw;
+    color: #511E5B;
+}
+
+button {
+    background-color: transparent;
+    border: 2px solid #B1B542;
+    font-family: 'Montserrat';
+    color: #B1B542;
+    font-size: 2vw;
+    margin-right: 1vw;
+    border-radius: 4px;
+    padding: 1vw;
+    float: right;
+}
+
+button:hover {
+    color: #EEF1DF;
+    background-color: #B1B542;
+}
+
+button:active {
+    color: #B1B542;
+    background-color: #B1B542;
+}
+
+input {
+    background-color: transparent;
+    border: 2px solid #B1B542;
+    font-family: 'Montserrat';
+    font-size: 2vw;
+    color: #0E1729;
+    border-radius: 4px;
+    padding: 0.5vw; 
+    width: 25vw;
+    margin-left: 1vw;
+}
+
+select {
+    background-color: transparent;
+    border: 2px solid #B1B542;
+    font-family: 'Montserrat';
+    font-size: 2vw;
+    color: #0E1729;
+    padding: 0.5vw; 
+    border-radius: 4px;
+    margin: 1vw;
+}
+
+#firstTimeDiv {
+    right: 0;
+    top: 70vh;
+    position: absolute;
+}
+
+#firstTimeTitle {
+    text-align: right;
+}
+
+#scheduleMealsTitle {
+    margin-top: 2vw;
+}

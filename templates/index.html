@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meal Planner</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
     <h1> Meal Planner </h1>
-    <p> Are you a first time user?</p>
-    <button onclick="firstTime()"> First Time User </button>
-    <button onclick="returningUser()"> Returning User </button>
+    <div id="firstTimeDiv">
+        <h3 id="firstTimeTitle"> Are you a first time user?</h3>
+        <button onclick="returningUser()"> Returning User </button>
+        <button onclick="firstTime()"> First Time User </button>
+    </div>
 
     <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>

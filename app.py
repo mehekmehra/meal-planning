@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, jsonify, session
 from backend.db_setup import SetUpMeals
 from backend.gcal import GCal
 import csv
-from backend.verify import verify_db, verify_email, verify_ingredients, verify_meal_name, verify_num_weeks
+from backend import verify
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -25,18 +26,18 @@ def get_new_info():
     db_name = data.get('name')
     email = data.get('email')
 
-    is_valid, error_message = verify_db(db_name)
+    is_valid, error_message = verify.verify_db(db_name)
     if not is_valid:
         return jsonify({"status": "error", "message": error_message}), 400
    
-    is_valid, error_message = verify_email(email)
+    is_valid, error_message = verify.verify_email(email)
     if not is_valid:
         return jsonify({"status": "error", "message": error_message}), 400
 
-    # gc = GCal(1, True, calendar_name=db_name, db_name=db_name, user_email=email)
-    # calendar_id = gc.calendar_id
+    gc = GCal(1, True, calendar_name=db_name, db_name=db_name, user_email=email)
+    calendar_id = gc.calendar_id
 
-    calendar_id = "testing"
+    # calendar_id = "testing"
 
 
     with open("user_info.csv", mode='a', newline='') as file:
@@ -52,26 +53,17 @@ def get_new_info():
 
     return jsonify({"status": "success", "message": error_message}), 400
 
-# @app.route('/first_time', methods=['POST'])
-# def get_first_time():
-#     data = request.get_json()
-#     is_first_time = data.get('is_first_time')
-#     session['is_first_time'] = is_first_time
-    
-# @app.route('/returning_user', methods=['GET'])
-# def returning_user():
-#     db = SetUpMeals()
-#     session['db_name'] = db.name
-
-#     print(db.name)
-#     return db.name
 
 @app.route("/schedule_meals", methods=["Post"])
 def schedule_meals():
     data = request.get_json()
     num_weeks_str = data.get('num_weeks')
 
-    is_valid, error_message = verify_num_weeks(num_weeks_str)
+    is_valid, error_message = verify.verify_num_weeks(num_weeks_str)
+    if not is_valid:
+        return jsonify({"status": "error", "message": error_message}), 400
+    
+    is_valid, error_message = verify.verify_num_meals()
     if not is_valid:
         return jsonify({"status": "error", "message": error_message}), 400
     
@@ -88,11 +80,11 @@ def get_meal():
     ingredients = data.get('ingredients')
     category = data.get('category')
     
-    is_valid, error_message = verify_ingredients(ingredients)
+    is_valid, error_message = verify.verify_ingredients(ingredients)
     if not is_valid:
         return jsonify({"status": "error", "message": error_message}), 400
     
-    is_valid, error_message = verify_meal_name(name)
+    is_valid, error_message = verify.verify_meal_name(name)
     if not is_valid:
         return jsonify({"status": "error", "message": error_message}), 400
 

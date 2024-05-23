@@ -1,4 +1,3 @@
-import sqlite3
 from backend.db_setup import SetUpMeals
 import random
 
