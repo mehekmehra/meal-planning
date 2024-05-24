@@ -1,18 +1,13 @@
-
-
 function firstTime() {
     window.location.href = '/first_time';
 }
+
 function returningUser() {
     fetch('/returning_user')
     .then(response => {
         window.location.href = '/adding_meals';
     })
     .catch(error => console.error('Error:', error));
-}
-
-function firstAddMeals() {
-    
 }
 
 function submitInfo() {
@@ -37,8 +32,7 @@ function submitInfo() {
         const message = document.createElement('p');
         message.textContent = data.message;
 
-        if (data.status === "error") {      
-            
+        if (data.status === "error") {        
             message.classList.add('errorMessage');
         } else {
             window.location.href = '/adding_meals';
@@ -112,5 +106,4 @@ function scheduleMeals() {
         messageDiv.appendChild(message); 
         numWeeksInput.value = '';
     });
-
 }
